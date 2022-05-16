@@ -15,9 +15,22 @@ Solution1: (Union)
     group by employee_id
     having count(employee_id) = 1)
 
-Solution2: (Window Function)
+Solution2: (Window Function) 
 
     select t.employee_id, t.department_id
     from (select *, count(employee_id) over(partition by employee_id) as C 
     from employee) t
     where t.C = 1 or t.primary_flag = "Y"
+
+Solution3: (coalesce) (case when then else end) (if)
+
+![image](https://user-images.githubusercontent.com/60442877/168523155-555b425e-64c0-4a8f-9bec-c47955ef35e7.png)
+![image](https://user-images.githubusercontent.com/60442877/168523203-2aef4778-e380-4606-944f-df549e03f907.png)
+
+    select employee_id, coalesce(max(case when primary_flag = "Y" then department_id else null end), department_id) department_id
+    from employee
+    group by employee_id
+    
+    select employee_id,coalesce(max(if(primary_flag = "Y", department_id, null)), department_id) department_id
+    from employee
+    group by employee_id
