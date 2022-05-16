@@ -25,7 +25,6 @@ Solution2: (Window Function)
 Solution3: (coalesce) (case when then else end) (if)
 
 ![image](https://user-images.githubusercontent.com/60442877/168523155-555b425e-64c0-4a8f-9bec-c47955ef35e7.png)
-![image](https://user-images.githubusercontent.com/60442877/168523203-2aef4778-e380-4606-944f-df549e03f907.png)
 
     select employee_id, coalesce(max(case when primary_flag = "Y" then department_id else null end), department_id) department_id
     from employee
