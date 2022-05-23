@@ -66,3 +66,26 @@ Solution 2: (UNPIVOT) (MS SQL)
     ) as T
 
 
+# 1421. NPV Queries
+
+![image](https://user-images.githubusercontent.com/60442877/169732053-a6f44b42-3e07-494c-a547-29f4c1f97bc3.png)
+
+![image](https://user-images.githubusercontent.com/60442877/169732071-e25d68a2-5e92-47cd-ab40-5c99ef5ff47e.png)
+
+![image](https://user-images.githubusercontent.com/60442877/169732080-5e4cecb1-0ac2-4689-9097-5f1f77a33e12.png)
+
+Solution 1: (left join) (ifnull)
+
+    select Q.id as id, Q.year as year, ifnull(N.npv,0) as npv
+    from Queries as Q left join NPV as N on (Q.id = N.id and Q.year = N.year) 
+
+Solution 2: (left join) (coalesce)
+
+    select Q.id as id, Q.year as year, coalesce(N.npv,0) as npv
+    from Queries as Q left join NPV as N on (Q.id = N.id and Q.year = N.year) 
+    
+    
+    
+    
+    
+
