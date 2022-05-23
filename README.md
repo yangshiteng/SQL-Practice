@@ -33,3 +33,36 @@ Solution3: (coalesce) (case when then else end) (if)
     select employee_id,coalesce(max(if(primary_flag = "Y", department_id, null)), department_id) department_id
     from employee
     group by employee_id
+
+
+# 1795. Rearrange Products Table
+
+![image](https://user-images.githubusercontent.com/60442877/169728687-cd93a763-51a1-49f4-80c4-d9a664f201fc.png)
+
+![image](https://user-images.githubusercontent.com/60442877/169728697-5d52d4b6-cb75-4647-9d0d-136404072a6d.png)
+
+Solution 1: (UNION) 
+
+    (select product_id, "store1" as store, store1 as price
+    from Products
+    where store1 is not null)
+    union
+    (select product_id, "store2" as store, store2 as price
+    from Products
+    where store2 is not null)
+    union
+    (select product_id, "store3" as store, store3 as price
+    from Products
+    where store3 is not null)
+
+Solution 2: (UNPIVOT) (MS SQL)
+
+    select product_id,store,price 
+    from Products
+    UNPIVOT
+    (
+    price
+    for store in (store1,store2,store3)
+    ) as T
+
+
