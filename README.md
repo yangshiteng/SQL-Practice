@@ -86,6 +86,18 @@ Solution 2: (left join) (coalesce)
     
     
     
-    
-    
+# 1809. Ad-Free Sessions
+
+![image](https://user-images.githubusercontent.com/60442877/171065459-ede93e96-2dd7-4b3a-8539-c10700ab65ef.png)
+
+![image](https://user-images.githubusercontent.com/60442877/171065472-a89b4ab6-9c2a-445b-89f5-3fd77e278598.png)
+
+    SELECT distinct session_id
+    FROM playback pb LEFT JOIN ads ad
+    ON pb.customer_id = ad.customer_id
+    AND ad.timestamp BETWEEN start_time and end_time
+    WHERE ad.customer_id IS NULL
+
+
+
 
